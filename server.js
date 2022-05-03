@@ -3,6 +3,9 @@ var app = express();
 
 var PORT = process.env.PORT || 3000;
 app.use('/assets', express.static(__dirname + '/public'));
+
+app.use(express.urlencoded({extended: false}))
+
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
@@ -16,7 +19,12 @@ app.get('/', (req, res) => {
 app.get('/person/:id', (req, res) => {
     res.render('person',{ID: req.params.id, Message: req.query.message, Times: req.query.times},);
 });
-
+app.get('/student',(req,res)=>{
+  res.render('index');
+})
+app.post('/student',(req,res)=>{
+  res.send(`First Name es: ${req.body.fname}, Last Name es: ${req.body.lname}`)
+})
 app.listen(PORT);
 
 
